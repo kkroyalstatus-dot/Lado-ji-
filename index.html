@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Photo Album</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #111827, #374151);
+    color: white;
+  }
+  .card {
+    width: min(92%, 390px);
+    padding: 34px 26px;
+    text-align: center;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+  }
+  .lock { font-size: 48px; margin-bottom: 10px; }
+  h1 { margin: 0 0 8px; font-size: 26px; }
+  p { margin: 0 0 24px; color: #d1d5db; }
+  input {
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 17px;
+    outline: none;
+    text-align: center;
+    background: white;
+    color: #111827;
+  }
+  button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 15px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    color: #111827;
+  }
+  button:active { transform: scale(.98); }
+  #message {
+    min-height: 22px;
+    margin-top: 14px;
+    color: #fecaca;
+    font-size: 14px;
+  }
+  .note {
+    margin-top: 22px;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="lock">🔐</div>
+    <h1>Private Photo Album</h1>
+    <p>Enter the password to continue</p>
+
+    <input id="password" type="password" placeholder="Enter password"
+           autocomplete="off" onkeydown="if(event.key==='Enter') unlock()">
+    <button onclick="unlock()">Unlock Album</button>
+
+    <div id="message"></div>
+    <div class="note">Private album • Password protected</div>
+  </main>
+
+<script>
+const CORRECT_PASSWORD = '27/08/12/11';
+const DRIVE_FOLDER = 'https://drive.google.com/drive/folders/1MjUwDFbaBksxyzQ3CFEhXPApyHnznWGJ';
+
+function unlock() {
+  const entered = document.getElementById("password").value;
+  const message = document.getElementById("message");
+
+  if (entered === CORRECT_PASSWORD) {
+    message.style.color = "#bbf7d0";
+    message.textContent = "Access granted…";
+    setTimeout(() => {
+      window.location.href = DRIVE_FOLDER;
+    }, 300);
+  } else {
+    message.style.color = "#fecaca";
+    message.textContent = "Incorrect password. Please try again.";
+  }
+}
+</script>
+</body>
+</html>
